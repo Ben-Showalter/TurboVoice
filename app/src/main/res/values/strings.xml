@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TurboVoice</string>
+    <string name="accessibility_service_description">Lets TurboVoice insert transcribed speech into whatever text field is currently focused, in whatever app is open — triggered by pressing the Mic/Assistant button. It only acts on that press; it does not read or record anything otherwise.</string>
+</resources>

@@ -1,0 +1,172 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.turbovoice.app"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="33" />
+10
+11    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+11-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:4:5-71
+11-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:4:22-68
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:5:5-67
+12-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:5:22-64
+13    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+13-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:6:5-78
+13-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:6:22-75
+14    <uses-permission android:name="android.permission.VIBRATE" />
+14-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:7:5-66
+14-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:7:22-63
+15
+16    <!--
+17         For reading the Groq API key from Internal storage/Turbo Key/groq_api_key.txt.
+18         MANAGE_EXTERNAL_STORAGE ("All files access") is what's actually needed on
+19         API 30+ to reach an arbitrary top-level folder like this under scoped
+20         storage; the other two cover the runtime-permission model on API 24-29.
+21    -->
+22    <uses-permission
+22-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:13:5-107
+23        android:name="android.permission.READ_EXTERNAL_STORAGE"
+23-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:13:22-77
+24        android:maxSdkVersion="32" />
+24-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:13:78-104
+25    <uses-permission
+25-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:14:5-108
+26        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+26-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:14:22-78
+27        android:maxSdkVersion="29" />
+27-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:14:79-105
+28    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+28-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:15:5-82
+28-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:15:22-79
+29
+30    <!--
+31         Optional: lets the Groq API key be set remotely via a
+32         specially-formatted text (see ApiKeyProvisioningHelper), same
+33         idea as TurboText's own provisioning texts. This does NOT make
+34         TurboVoice a messaging app or a default-SMS-app candidate — it
+35         just reads a copy of each incoming message alongside whatever
+36         app actually handles SMS on this device.
+37    -->
+38    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+38-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:23:5-70
+38-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:23:22-67
+39
+40    <permission
+40-->[androidx.core:core:1.10.1] C:\Users\Benevolent\.gradle\caches\transforms-3\031e7bcb191513255b93c6f8738cef28\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
+41        android:name="com.turbovoice.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+41-->[androidx.core:core:1.10.1] C:\Users\Benevolent\.gradle\caches\transforms-3\031e7bcb191513255b93c6f8738cef28\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
+42        android:protectionLevel="signature" />
+42-->[androidx.core:core:1.10.1] C:\Users\Benevolent\.gradle\caches\transforms-3\031e7bcb191513255b93c6f8738cef28\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
+43
+44    <uses-permission android:name="com.turbovoice.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+44-->[androidx.core:core:1.10.1] C:\Users\Benevolent\.gradle\caches\transforms-3\031e7bcb191513255b93c6f8738cef28\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
+44-->[androidx.core:core:1.10.1] C:\Users\Benevolent\.gradle\caches\transforms-3\031e7bcb191513255b93c6f8738cef28\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
+45
+46    <application
+46-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:25:5-66:19
+47        android:allowBackup="true"
+47-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:26:9-35
+48        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+48-->[androidx.core:core:1.10.1] C:\Users\Benevolent\.gradle\caches\transforms-3\031e7bcb191513255b93c6f8738cef28\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
+49        android:debuggable="true"
+50        android:extractNativeLibs="false"
+51        android:icon="@drawable/ic_launcher_square"
+51-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:27:9-52
+52        android:label="@string/app_name"
+52-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:28:9-41
+53        android:supportsRtl="true"
+53-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:30:9-35
+54        android:testOnly="true"
+55        android:theme="@style/Theme.TurboVoice" >
+55-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:29:9-48
+56        <activity
+56-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:32:9-39:20
+57            android:name="com.turbovoice.app.MainActivity"
+57-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:33:13-41
+58            android:exported="true" >
+58-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:34:13-36
+59            <intent-filter>
+59-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:35:13-38:29
+60                <action android:name="android.intent.action.MAIN" />
+60-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:36:17-69
+60-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:36:25-66
+61
+62                <category android:name="android.intent.category.LAUNCHER" />
+62-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:37:17-77
+62-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:37:27-74
+63            </intent-filter>
+64        </activity>
+65
+66        <service
+66-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:41:9-51:19
+67            android:name="com.turbovoice.app.TurboVoiceAccessibilityService"
+67-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:42:13-59
+68            android:exported="true"
+68-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:43:13-36
+69            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+69-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:44:13-79
+70            <intent-filter>
+70-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:45:13-47:29
+71                <action android:name="android.accessibilityservice.AccessibilityService" />
+71-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:46:17-92
+71-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:46:25-89
+72            </intent-filter>
+73
+74            <meta-data
+74-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:48:13-50:72
+75                android:name="android.accessibilityservice"
+75-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:49:17-60
+76                android:resource="@xml/accessibility_service_config" />
+76-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:50:17-69
+77        </service>
+78
+79        <!--
+80             android:permission restricts who's allowed to send this
+81             broadcast to the system itself, so another app can't spoof a
+82             fake incoming text to trigger provisioning. exported="true" is
+83             required for the system to be able to deliver it at all.
+84        -->
+85        <receiver
+85-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:57:9-64:20
+86            android:name="com.turbovoice.app.ProvisioningSmsReceiver"
+86-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:58:13-52
+87            android:exported="true"
+87-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:59:13-36
+88            android:permission="android.permission.BROADCAST_SMS" >
+88-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:60:13-66
+89            <intent-filter>
+89-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:61:13-63:29
+90                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+90-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:62:17-82
+90-->C:\Users\Benevolent\My Files\Apps For flip phones\Custom Voice-To-Text APP\TurboVoice_review\app\src\main\AndroidManifest.xml:62:25-79
+91            </intent-filter>
+92        </receiver>
+93
+94        <provider
+94-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Benevolent\.gradle\caches\transforms-3\ba52cbd3723cf662cdfc624d34e7809f\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+95            android:name="androidx.startup.InitializationProvider"
+95-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Benevolent\.gradle\caches\transforms-3\ba52cbd3723cf662cdfc624d34e7809f\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+96            android:authorities="com.turbovoice.app.androidx-startup"
+96-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Benevolent\.gradle\caches\transforms-3\ba52cbd3723cf662cdfc624d34e7809f\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+97            android:exported="false" >
+97-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Benevolent\.gradle\caches\transforms-3\ba52cbd3723cf662cdfc624d34e7809f\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+98            <meta-data
+98-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Benevolent\.gradle\caches\transforms-3\ba52cbd3723cf662cdfc624d34e7809f\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+99                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+99-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Benevolent\.gradle\caches\transforms-3\ba52cbd3723cf662cdfc624d34e7809f\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+100                android:value="androidx.startup" />
+100-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Benevolent\.gradle\caches\transforms-3\ba52cbd3723cf662cdfc624d34e7809f\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+101            <meta-data
+101-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Benevolent\.gradle\caches\transforms-3\01acc56b3fe7b8dceb6e674562d70585\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+102                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+102-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Benevolent\.gradle\caches\transforms-3\01acc56b3fe7b8dceb6e674562d70585\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+103                android:value="androidx.startup" />
+103-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Benevolent\.gradle\caches\transforms-3\01acc56b3fe7b8dceb6e674562d70585\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+104        </provider>
+105    </application>
+106
+107</manifest>
