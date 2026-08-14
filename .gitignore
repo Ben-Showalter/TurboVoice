@@ -1,0 +1,28 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+/.claude/
+.DS_Store
+
+# Unanchored (no leading slash) so these match at any depth, not just
+# the project root — app/build/, app/release/, and similar per-module
+# output directories all need to be caught, not just a root-level one.
+build/
+release/
+captures/
+.externalNativeBuild
+.cxx
+local.properties
+
+# Signing credentials — real passwords and a keystore file path would
+# live here if this project adds a signing config later.
+keystore.properties
+*.jks
+*.keystore
+
+# Compiled app packages should never be committed as source — if you
+# want to distribute a built APK, attach it to a GitHub Release instead
+# of tracking it in the repo itself.
+*.apk
+*.aab

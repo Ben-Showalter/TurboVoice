@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The default AppCompat button focus state barely differs from its
+     resting state on this app's black background, making it hard to
+     tell which button is currently focused when navigating by D-pad.
+     This gives focused/pressed a clearly distinct accent-colored fill. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FF6D4A24" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FF6D4A24" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF2A2A2A" />
+            <stroke android:width="1dp" android:color="#FF555555" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+</selector>

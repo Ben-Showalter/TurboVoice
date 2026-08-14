@@ -8,7 +8,8 @@
      which aren't focusable, so they have to fake it manually). -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,14 +21,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/statusText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#AAAAAA"
             android:textSize="14sp"
             android:layout_marginBottom="20dp" />
 
@@ -35,6 +38,9 @@
             android:id="@+id/openAccessibilityButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
             android:text="Open Accessibility Settings"
             android:layout_marginBottom="8dp" />
 
@@ -42,6 +48,9 @@
             android:id="@+id/openOverlayButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
             android:text="Open Overlay Permission Settings"
             android:layout_marginBottom="8dp" />
 
@@ -49,6 +58,9 @@
             android:id="@+id/requestMicButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
             android:text="Grant Microphone Permission"
             android:layout_marginBottom="8dp" />
 
@@ -56,6 +68,9 @@
             android:id="@+id/requestStorageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
             android:text="Grant Storage Access"
             android:layout_marginBottom="8dp" />
 
@@ -63,6 +78,9 @@
             android:id="@+id/requestSmsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
             android:text="Grant SMS Permission (optional)"
             android:layout_marginBottom="8dp" />
 
@@ -70,7 +88,30 @@
             android:id="@+id/setTrustedNumberButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set Trusted Provisioning Number" />
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:text="Set Trusted Provisioning Number"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/setTriggerKeyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:text="@string/set_trigger_key"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/clearTriggerKeyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_button_bg"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:text="@string/clear_trigger_key" />
 
     </LinearLayout>
 

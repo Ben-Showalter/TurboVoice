@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.text.InputType
+import android.view.KeyEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -70,6 +71,14 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.setTrustedNumberButton).setOnClickListener {
             promptTrustedNumber()
+        }
+        findViewById<Button>(R.id.setTriggerKeyButton).setOnClickListener {
+            startActivity(Intent(this, KeyCaptureActivity::class.java))
+        }
+        findViewById<Button>(R.id.clearTriggerKeyButton).setOnClickListener {
+            TriggerKeyStorage.setTriggerKeycode(this, -1)
+            Toast.makeText(this, "Trigger key cleared — voice input disabled until a new one is set", Toast.LENGTH_LONG).show()
+            refreshStatus()
         }
     }
 
@@ -149,6 +158,12 @@ class MainActivity : AppCompatActivity() {
             this, Manifest.permission.RECEIVE_SMS
         ) == PackageManager.PERMISSION_GRANTED
         val trustedNumberSet = !ProvisioningSettings.getTrustedNumber(this).isNullOrBlank()
+        val triggerKeycode = TriggerKeyStorage.getTriggerKeycode(this)
+        val triggerDescription = if (triggerKeycode != null) {
+            KeyEvent.keyCodeToString(triggerKeycode)
+        } else {
+            "not set — voice input is disabled until one is chosen below"
+        }
 
         statusText.text = buildString {
             append(if (micOn) "✓" else "✗").append(" Microphone permission granted\n")
@@ -157,8 +172,9 @@ class MainActivity : AppCompatActivity() {
             append(if (storageOn) "✓" else "✗").append(" Storage access granted (needed to read the API key file)\n")
             append(if (apiKeySet) "✓" else "✗").append(" Groq API key set in Internal storage/Turbo Key/groq_api_key.txt\n")
             append(if (smsOn) "✓" else "✗").append(" SMS permission granted (optional — for remote key provisioning)\n")
-            append(if (trustedNumberSet) "✓" else "✗").append(" Trusted provisioning number set (optional)\n\n")
-            append("How to use: tap into any text field in any app, then hold the Mic/Assistant button, speak, and release. The transcribed text is pasted in at the cursor position.")
+            append(if (trustedNumberSet) "✓" else "✗").append(" Trusted provisioning number set (optional)\n")
+            append("Trigger key: ").append(triggerDescription).append("\n\n")
+            append("How to use: tap into any text field in any app, then hold the trigger key, speak, and release. The transcribed text is pasted in at the cursor position.")
         }
     }
 

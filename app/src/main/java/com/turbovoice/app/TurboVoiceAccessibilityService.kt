@@ -40,26 +40,27 @@ import android.widget.TextView
  *  pattern TurboText's own KeyButtonAccessibilityService already proved
  *  reliable on this device.
  *
- *  Trigger: this device's dedicated Mic/Assistant button (KEYCODE_F4 /
- *  KEYCODE_SPEAKER_IN on this device — see MIC_BUTTON_KEYCODES), not the
- *  separate PTT button, and not VOLUME_UP. VOLUME_UP was tried first,
- *  but a real device log showed "no focused editable field — not
- *  starting recording" on every attempt: pressing it pops up the
- *  phone's own volume UI, which apparently becomes the focused window
- *  itself (it has no editable field, so findFocusedEditableNode()
- *  correctly comes up empty), stealing focus away from whatever field
- *  was actually focused a moment earlier. The Mic/Assistant button
- *  doesn't have that problem — it's a separate physical button from
- *  both Volume Up and PTT, built for a voice-assistant feature that
- *  isn't otherwise well-suited to what's actually needed here, which
- *  makes it a good candidate to repurpose instead: nothing else on this
- *  device reacts to it, and TurboText's own accessibility service
- *  listens for PTT specifically, not this button, so there's no
- *  conflict between the two apps. Safe to consume outright and start
- *  recording immediately on press rather than requiring a long-press
- *  debounce, since there's no competing normal function to accidentally
- *  interrupt. Confirmed working already in this same repo's sibling
- *  VoiceTyper app on this exact hardware. */
+ *  Trigger: entirely user-selectable via MainActivity's "Set Trigger
+ *  Key" button (see TriggerKeyStorage / KeyCaptureActivity, ported from
+ *  TurboLaunch's own shortcut-key picker). No key is hardcoded and
+ *  nothing is intercepted until the user picks one — onKeyEvent below
+ *  is a no-op with no trigger key set. Steer users away from VOLUME_UP
+ *  specifically: a real device log showed "no focused editable field —
+ *  not starting recording" on every attempt, because pressing it pops
+ *  up the phone's own volume UI, which apparently becomes the focused
+ *  window itself (it has no editable field, so
+ *  findFocusedEditableNode() correctly comes up empty), stealing focus
+ *  away from whatever field was actually focused a moment earlier. This
+ *  device's dedicated Mic/Assistant button (KEYCODE_F4 /
+ *  KEYCODE_SPEAKER_IN) doesn't have that problem and is a good
+ *  suggested default for users to pick, since nothing else on this
+ *  device reacts to it and TurboText's own accessibility service
+ *  listens for PTT specifically, not this button — but it's just a
+ *  suggestion, not special-cased in code. Safe to consume outright and
+ *  start recording immediately on press rather than requiring a
+ *  long-press debounce, since there's no competing normal function to
+ *  accidentally interrupt. Confirmed working already in this same
+ *  repo's sibling VoiceTyper app on this exact hardware. */
 class TurboVoiceAccessibilityService : AccessibilityService() {
 
     private var isRecording = false
@@ -93,11 +94,24 @@ class TurboVoiceAccessibilityService : AccessibilityService() {
                     AccessibilityServiceInfo.DEFAULT
             notificationTimeout = 100
         }
-        Log.i(TAG, "TurboVoice accessibility service connected, watching for keycodes $MIC_BUTTON_KEYCODES")
+        Log.i(TAG, "TurboVoice accessibility service connected, watching for keycode(s) ${currentTriggerDescription()}")
+    }
+
+    /** True if [event] is the user's chosen trigger key. False (never
+     *  triggers) if the user hasn't set one yet — there is no fallback
+     *  default key. */
+    private fun isTriggerKeyEvent(event: KeyEvent): Boolean {
+        val triggerKeycode = TriggerKeyStorage.getTriggerKeycode(this) ?: return false
+        return event.keyCode == triggerKeycode
+    }
+
+    private fun currentTriggerDescription(): String {
+        val triggerKeycode = TriggerKeyStorage.getTriggerKeycode(this)
+        return if (triggerKeycode != null) "keycode $triggerKeycode" else "none set"
     }
 
     override fun onKeyEvent(event: KeyEvent): Boolean {
-        if (event.keyCode !in MIC_BUTTON_KEYCODES) return super.onKeyEvent(event)
+        if (!isTriggerKeyEvent(event)) return super.onKeyEvent(event)
         if (isTurboTextForeground()) {
             // TurboText has its own built-in voice-to-text (its Soft-Right
             // key). Leaving this button completely alone while TurboText is
@@ -356,14 +370,6 @@ class TurboVoiceAccessibilityService : AccessibilityService() {
 
     companion object {
         private const val TAG = "TurboVoiceService"
-
-        // This phone's dedicated Mic/Assistant button — a separate
-        // physical button from both Volume Up and the actual PTT button.
-        // It surfaces under different keycodes depending on context —
-        // KEYCODE_F4 (134) when an app has focus, KEYCODE_SPEAKER_IN
-        // (287) when nothing does — so both are treated as the same
-        // trigger.
-        private val MIC_BUTTON_KEYCODES = setOf(KeyEvent.KEYCODE_F4, 287)
 
         // TurboText's applicationId (see its app/build.gradle) — used to
         // detect when it's the foreground app so this service can leave

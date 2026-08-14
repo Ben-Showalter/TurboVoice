@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TurboVoice</string>
-    <string name="accessibility_service_description">Lets TurboVoice insert transcribed speech into whatever text field is currently focused, in whatever app is open — triggered by pressing the Mic/Assistant button. It only acts on that press; it does not read or record anything otherwise.</string>
+    <string name="accessibility_service_description">Lets TurboVoice insert transcribed speech into whatever text field is currently focused, in whatever app is open — triggered by pressing your chosen trigger key, set from the app\'s main screen. It only acts on that press; it does not read or record anything otherwise.</string>
+    <string name="set_trigger_key">Set Trigger Key</string>
+    <string name="clear_trigger_key">Clear Trigger Key</string>
+    <string name="key_capture_prompt">Press the key you want to use as your trigger.\n\nPress Back to cancel.</string>
 </resources>

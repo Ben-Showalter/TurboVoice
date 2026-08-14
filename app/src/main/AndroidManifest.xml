@@ -38,6 +38,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".KeyCaptureActivity" android:exported="false" />
+
         <service
             android:name=".TurboVoiceAccessibilityService"
             android:exported="true"
