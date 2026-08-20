@@ -1,4 +1,4 @@
-This app provides a Speech-to-text feature for non-touch flip phones. (Kyocera E4610, and E4810 have been tested.) Once installed properly: with the cursor in a text field, you can simply hold a button of your choice while talking, then when you let go, it transcribes it, then types it in.
+This app provides a Speech-to-text feature for non-touch flip phones. (Kyocera and Sonim phones have been tested, but not all models are guaranteed to work.) Once installed properly: with the cursor in a text field, you can simply hold a button of your choice while talking, then when you let go, it transcribes it, then types it in.
 Instructions for installing on Kyocera E4610:
 1.	Install TurboVoice by sideloading the APK or install directly from Android studio.
 2.	It should open right away with a page of setting’s to set.
