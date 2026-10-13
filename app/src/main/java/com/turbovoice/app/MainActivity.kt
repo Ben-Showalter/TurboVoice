@@ -17,10 +17,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var statusText: TextView
+
+    /** Runs the update check/download off the main thread (see [maybeCheckForUpdate]). */
+    private val updateLoader = BackgroundLoader()
 
     private val requestMicPermission = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -80,6 +84,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Trigger key cleared — voice input disabled until a new one is set", Toast.LENGTH_LONG).show()
             refreshStatus()
         }
+        findViewById<Button>(R.id.checkUpdatesButton).setOnClickListener {
+            checkForUpdate()
+        }
     }
 
     /** Phone number input, not full text — a plain EditText with
@@ -115,6 +122,12 @@ class MainActivity : AppCompatActivity() {
         // soon as storage access gets granted, without needing a reinstall.
         GroqConfig.ensureKeyFileExists()
         refreshStatus()
+        maybeCheckForUpdate()
+    }
+
+    override fun onDestroy() {
+        updateLoader.cancel()
+        super.onDestroy()
     }
 
     private fun hasStorageAccess(): Boolean =
@@ -173,9 +186,75 @@ class MainActivity : AppCompatActivity() {
             append(if (apiKeySet) "✓" else "✗").append(" Groq API key set in Internal storage/Turbo Key/groq_api_key.txt\n")
             append(if (smsOn) "✓" else "✗").append(" SMS permission granted (optional — for remote key provisioning)\n")
             append(if (trustedNumberSet) "✓" else "✗").append(" Trusted provisioning number set (optional)\n")
-            append("Trigger key: ").append(triggerDescription).append("\n\n")
+            append("Trigger key: ").append(triggerDescription).append("\n")
+            append("Installed version: ").append(UpdateChecker.installedVersion(this@MainActivity)).append("\n\n")
             append("How to use: tap into any text field in any app, then hold the trigger key, speak, and release. The transcribed text is pasted in at the cursor position.")
         }
+    }
+
+    // ---------------------------------------------------------------- Updates
+
+    /**
+     * Checks GitHub for a newer release about once a week when this screen is
+     * opened (same as FlipLaunch's Home screen) and, if there is one, asks the
+     * user whether to install it. The Check for Updates button checks on demand.
+     */
+    private fun maybeCheckForUpdate() {
+        val now = System.currentTimeMillis()
+        val last = ProvisioningSettings.getLastUpdateCheckAt(this)
+        // A last-check time in the future means the clock was turned back; check anyway.
+        if (now - last in 0 until UpdateChecker.CHECK_INTERVAL_MS) return
+        // Recorded up front so resumes while the check is in flight don't start another.
+        ProvisioningSettings.setLastUpdateCheckAt(this, now)
+        updateLoader.load(
+            produce = {
+                try {
+                    Result.success(UpdateChecker.fetchLatest(this))
+                } catch (e: Exception) {
+                    Result.failure(e)
+                }
+            },
+            consume = { result ->
+                result.onFailure {
+                    // Offline or rate-limited: try again in a day rather than a week.
+                    ProvisioningSettings.setLastUpdateCheckAt(
+                        this,
+                        now - UpdateChecker.CHECK_INTERVAL_MS + UpdateChecker.RETRY_AFTER_FAILURE_MS,
+                    )
+                }
+                val release = result.getOrNull() ?: return@load
+                if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                    showUpdatePrompt(release, updateLoader)
+                } else {
+                    // This screen was left mid-check; ask on the next resume instead.
+                    ProvisioningSettings.setLastUpdateCheckAt(this, 0L)
+                }
+            },
+        )
+    }
+
+    /** Manual counterpart to the weekly automatic check ([maybeCheckForUpdate]). */
+    private fun checkForUpdate() {
+        Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
+        updateLoader.load(
+            produce = {
+                try {
+                    Result.success(UpdateChecker.fetchLatest(this))
+                } catch (e: Exception) {
+                    Result.failure(e)
+                }
+            },
+            consume = { result ->
+                val release = result.getOrNull()
+                when {
+                    result.isFailure ->
+                        Toast.makeText(this, R.string.update_check_failed, Toast.LENGTH_LONG).show()
+                    release == null ->
+                        Toast.makeText(this, R.string.update_up_to_date, Toast.LENGTH_SHORT).show()
+                    else -> showUpdatePrompt(release, updateLoader)
+                }
+            },
+        )
     }
 
     private fun isAccessibilityServiceEnabled(): Boolean {

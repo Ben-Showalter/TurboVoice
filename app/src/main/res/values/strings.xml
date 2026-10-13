@@ -4,4 +4,17 @@
     <string name="set_trigger_key">Set Trigger Key</string>
     <string name="clear_trigger_key">Clear Trigger Key</string>
     <string name="key_capture_prompt">Press the key you want to use as your trigger.\n\nPress Back to cancel.</string>
+
+    <!-- In-app updates (UpdateChecker.kt, UpdatePrompt.kt) -->
+    <string name="check_updates">Check for Updates</string>
+    <string name="update_available_title">Update available: v%1$s</string>
+    <string name="update_available_message">A new version of TurboVoice is ready to install (%1$s MB).\n\nA Wi-Fi connection is preferred for downloading updates.</string>
+    <string name="update_on_mobile_data">You are currently on mobile data.</string>
+    <string name="update_install">Install</string>
+    <string name="update_later">Later</string>
+    <string name="update_downloading">Downloading update…</string>
+    <string name="update_failed">Update download failed</string>
+    <string name="update_checking">Checking for updates…</string>
+    <string name="update_up_to_date">TurboVoice is up to date</string>
+    <string name="update_check_failed">Couldn\'t check for updates</string>
 </resources>

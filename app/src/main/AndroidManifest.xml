@@ -22,6 +22,12 @@
          app actually handles SMS on this device. -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
+    <!-- Self-update from GitHub Releases (UpdateChecker.kt): check for Wi-Fi
+         to note it's preferred for the download, and hand the downloaded APK
+         to the system installer. INTERNET is already declared above. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_square"
@@ -64,6 +70,17 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <!-- Shares a downloaded update APK with the system installer. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 </manifest>
