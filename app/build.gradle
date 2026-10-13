@@ -3,6 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+// Release signing key, kept out of git: a `keystore.properties` at the repo root
+// (see README, "Publishing a release"). Without it, release builds are left
+// unsigned so fresh checkouts still build.
+def keystorePropsFile = rootProject.file('keystore.properties')
+def keystoreProps = null
+if (keystorePropsFile.exists()) {
+    keystoreProps = new Properties()
+    keystorePropsFile.withInputStream { keystoreProps.load(it) }
+}
+
 android {
     namespace 'com.turbovoice.app'
     compileSdk 33
@@ -15,8 +25,22 @@ android {
         versionName "1.0"
     }
 
+    signingConfigs {
+        if (keystoreProps != null) {
+            release {
+                storeFile rootProject.file(keystoreProps.getProperty('storeFile'))
+                storePassword keystoreProps.getProperty('storePassword')
+                keyAlias keystoreProps.getProperty('keyAlias')
+                keyPassword keystoreProps.getProperty('keyPassword')
+            }
+        }
+    }
+
     buildTypes {
         release {
+            // Every published release must be signed with this same key, and
+            // carry a higher versionCode, or devices refuse the in-app update.
+            if (keystoreProps != null) signingConfig signingConfigs.release
             minifyEnabled false
         }
     }
@@ -41,4 +65,6 @@ dependencies {
     // TurboText, for the same reason: 4.x rather than 5.x's split
     // JVM/Android artifacts.
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+
+    testImplementation 'junit:junit:4.13.2'
 }
