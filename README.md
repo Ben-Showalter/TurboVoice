@@ -8,7 +8,7 @@ Instructions for installing on Kyocera E4610:
 6.	Optional: you can grant SMS permission, and set the “provisioning phone number” if you want to be able to set the API key remotely. (See below for more details)
 7.	Set the trigger key. Press the button that you want to push to start the transcribing, it will automatically remember the key, and return to the Main menu.
 
- 	This app is using Groq’s API Whisper Speetch-to-text service. You will need a Groq API key to make it work. There are two methods for entering the API key into the app.
+ 	This app is using Groq’s API Whisper Speech-to-text service. You will need a Groq API key to make it work. There are two methods for entering the API key into the app.
 1.	Copy and paste the key into the text file found in: Internal storage/Turbo key/ (you may need to restart the phone for this to show up.)
 2.	You can set the key remotely by sending it from a Phone number that matches what you enter in step 6. Above. The API key needs encoded using Base64 format (base64encode.org) then prefixed like follows: TURBOVOICE_SETUP:put your encoded api key here. Send this encoded and prefixed text to the phone that you are setting up, TuboVoice will read it and the Speech-to-text should start working.
 
